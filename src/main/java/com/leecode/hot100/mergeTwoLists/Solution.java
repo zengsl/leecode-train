@@ -2,22 +2,25 @@ package com.leecode.hot100.mergeTwoLists;
 
 
 class Solution {
-    public boolean hasCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return false;
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null && list2 == null) {
+            return null;
         }
-        ListNode slow = head;
-        ListNode fast = head;
-        while (fast != null) {
-            slow = slow.next;
-            fast = fast.next != null ? fast.next.next : null;
-            if (slow == fast) {
-                return true;
+        ListNode headPre = new ListNode(-1);
+        ListNode curr = headPre;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
             }
+            curr = curr.next;
         }
-        return false;
+        curr.next = list1 != null ? list1 : list2;
+        return headPre.next;
+
     }
-
-
-
 }
