@@ -37,24 +37,48 @@
 //
 // Related Topics 数组 动态规划 👍 3658 👎 0
 
-  
+
 package com.leetcode.editor.cn;
-  
+
 /**
-* 
-* [121]Best Time to Buy and Sell Stock
-*
-*/
-public class BestTimeToBuyAndSellStock{
+ * [121]Best Time to Buy and Sell Stock
+ */
+public class BestTimeToBuyAndSellStock {
     public static void main(String[] args) {
-       Solution solution = new BestTimeToBuyAndSellStock().new Solution();
+        Solution solution = new BestTimeToBuyAndSellStock().new Solution();
+
+        System.out.println(solution.maxProfit(new int[]{
+                7, 6, 4, 3, 1
+        }));
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int maxProfit(int[] prices) {
-        
+    class Solution {
+        /*public int maxProfit(int[] prices) {
+            int maxProfit = Integer.MIN_VALUE;
+            for (int i = 0; i < prices.length - 1; i++) {
+                for (int j = i + 1; j < prices.length; j++) {
+                    maxProfit = Math.max(maxProfit, prices[j] - prices[i]);
+                }
+            }
+            return Math.max(maxProfit, 0);
+        }*/
+
+        public int maxProfit(int[] prices) {
+            int maxProfit = 0;
+            int minPrice = Integer.MAX_VALUE;
+
+            for (int price : prices) {
+                if (price < minPrice) {
+                    minPrice = price;
+                } else if (price - minPrice > maxProfit) {
+                    maxProfit = price - minPrice;
+                }
+            }
+
+            return maxProfit;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
