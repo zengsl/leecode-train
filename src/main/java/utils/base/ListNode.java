@@ -1,4 +1,4 @@
-package utils.RemoveDuplicatesFromSortedList;
+package utils.base;
 
 public class ListNode {
 

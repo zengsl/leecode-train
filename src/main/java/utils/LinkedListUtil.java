@@ -1,6 +1,6 @@
 package utils;
 
-import utils.RemoveDuplicatesFromSortedList.ListNode;
+import utils.base.ListNode;
 
 public class LinkedListUtil {
 

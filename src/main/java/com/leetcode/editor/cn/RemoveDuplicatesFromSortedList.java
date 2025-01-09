@@ -31,7 +31,7 @@
 package com.leetcode.editor.cn;
 
 import utils.LinkedListUtil;
-import utils.RemoveDuplicatesFromSortedList.ListNode;
+import utils.base.ListNode;
 
 /**
  * [83]Remove Duplicates from Sorted List
