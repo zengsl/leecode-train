@@ -62,13 +62,18 @@ import utils.bst.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * [145]Binary Tree Postorder Traversal
  */
 public class BinaryTreePostorderTraversal {
     public static void main(String[] args) {
-        Solution solution = new BinaryTreePostorderTraversal().new Solution();
+        TreeNode root = new TreeNode(1);
+        TreeNode right = new TreeNode(2);
+        right.left = new TreeNode(3);
+        root.right = right;
+        System.out.println(new Solution().postorderTraversal(root));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -87,9 +92,30 @@ public class BinaryTreePostorderTraversal {
      * }
      * }
      */
-    class Solution {
-
+    static class Solution {
         public List<Integer> postorderTraversal(TreeNode root) {
+            if (root == null) {
+                return List.of();
+            }
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            TreeNode lastPrint = root;
+            List<Integer> result = new ArrayList<>();
+            while (!stack.empty()) {
+                TreeNode peek = stack.peek();
+                if (peek.left != null && peek.left != lastPrint && peek.right != lastPrint) {
+                    stack.add(peek.left);
+                } else if (peek.right != null && peek.right != lastPrint) {
+                    stack.add(peek.right);
+                } else {
+                    lastPrint = stack.pop();
+                    result.add(lastPrint.val);
+                }
+            }
+            return result;
+        }
+
+        /*public List<Integer> postorderTraversal(TreeNode root) {
             List<Integer> result = new ArrayList<>();
             process(root, result);
             return result;
@@ -102,7 +128,7 @@ public class BinaryTreePostorderTraversal {
             process(node.left, result);
             process(node.right, result);
             result.add(node.val);
-        }
+        }*/
 
         /*public List<Integer> postorderTraversal(TreeNode root) {
             List<Integer> result = new ArrayList<>();
