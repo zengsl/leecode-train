@@ -75,11 +75,41 @@ public class CountCompleteTreeNodes {
             return process(root);
         }
 
+        public int countNodes2(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            return doCountNode(root, 1, mostLeftLevel(root, 1));
+        }
+
         private int process(TreeNode node) {
             if (node == null) {
                 return 0;
             }
             return process(node.left) + process(node.right) + 1;
+        }
+
+        private int doCountNode(TreeNode curr, int currLevel, int totalLevel) {
+            // 叶子节点
+            if (currLevel == totalLevel) {
+                return 1;
+            }
+
+            if (totalLevel == mostLeftLevel(curr.right, currLevel + 1)) {
+                return (1 << (totalLevel - currLevel)) + doCountNode(curr.right, currLevel + 1, totalLevel);
+            } else {
+                return (1 << (totalLevel - currLevel - 1)) + doCountNode(curr.left, currLevel + 1, totalLevel);
+            }
+        }
+
+
+        // 因为是满二叉树，所以直接找到最左叶子节点，然后求出层数
+        private int mostLeftLevel(TreeNode curr, int currentLevel) {
+            while (curr != null) {
+                curr = curr.left;
+                currentLevel++;
+            }
+            return currentLevel - 1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
