@@ -54,11 +54,38 @@ package com.leetcode.editor.cn;
 public class PalindromeNumber {
     public static void main(String[] args) {
         Solution solution = new PalindromeNumber().new Solution();
+        System.out.println(solution.getScale(1112));
+        System.out.println(solution.isPalindrome(121));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
         public boolean isPalindrome(int x) {
+            if (x < 0) {
+                return false;
+            }
+            int scale = getScale(x);
+            while (x > 0) {
+                if (x / scale != x % 10) {
+                    return false;
+                }
+                x = x % scale / 10;
+                scale /= 100;
+            }
+            return true;
+        }
+
+        private int getScale(int x) {
+            int scale = 1;
+            while ((x /= 10) > 0) {
+                scale *= 10;
+            }
+            return scale;
+        }
+
+        public boolean isPalindrome2(int x) {
             if (x < 0) {
                 return false;
             }
