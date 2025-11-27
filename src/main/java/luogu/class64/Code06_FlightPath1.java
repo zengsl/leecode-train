@@ -9,8 +9,8 @@ public class Code06_FlightPath1 {
 
     public static int n, m, k, s, t;
 
-    public static final int MAX_POINT = 1000;
-    public static final int MAX_EDGE = 2 * 5001;
+    public static final int MAX_POINT = 10001;
+    public static final int MAX_EDGE = 100001;
     // 每一节点的第一条边
     public static final int[] HEAD = new int[MAX_POINT];
     // 每条边的下一个兄弟边
