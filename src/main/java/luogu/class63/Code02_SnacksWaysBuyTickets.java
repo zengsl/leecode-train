@@ -2,6 +2,7 @@ package luogu.class63;
 
 import java.io.*;
 import java.util.Arrays;
+
 // 秒
 // https://www.nowcoder.com/practice/bf877f837467488692be703735db84e6?tpId=98&tqId=32831&qru=/ta/2019test/question-ranking
 // https://www.luogu.com.cn/problem/P4799
@@ -12,8 +13,8 @@ public class Code02_SnacksWaysBuyTickets {
     public static int n;
     public static long m;
     public static long[] arr = new long[MAXN];
-    public static long[] ls = new long[MAX_HALF];
-    public static long[] rs = new long[MAX_HALF];
+    public static long[] lr = new long[MAX_HALF];
+    public static long[] rr = new long[MAX_HALF];
 
     public static void main(String[] args) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,15 +35,15 @@ public class Code02_SnacksWaysBuyTickets {
         }
     }
 
-    public static int compute() {
-        int lSize = f(0, n >> 1, ls, 0, 0, m);
-        int rSize = f(n >> 1, n, rs, 0, 0, m);
-        Arrays.sort(ls, 0, lSize);
-        Arrays.sort(rs, 0, rSize);
+    public static long compute() {
+        int lSize = f(0, n >> 1, 0, lr, 0, m);
+        int rSize = f(n >> 1, n, 0, rr, 0, m);
+        Arrays.sort(lr, 0, lSize);
+        Arrays.sort(rr, 0, rSize);
 
-        int sum = 0;
+        long sum = 0;
         for (int r = rSize - 1, l = 0; r >= 0; r--) {
-            while (l < lSize && ls[l] + rs[r] <= m) {
+            while (l < lSize && lr[l] + rr[r] <= m) {
                 l++;
             }
             sum += l;
@@ -50,17 +51,17 @@ public class Code02_SnacksWaysBuyTickets {
         return sum;
     }
 
-    public static int f(int curr, int end, long[] sumArr, long sum, int i, long max) {
+    public static int f(int curr, int end, long sum, long[] sumArr, int sumIndex, long max) {
         if (sum > max) {
-            return i;
+            return sumIndex;
         }
 
         if (curr == end) {
-            sumArr[i++] = sum;
+            sumArr[sumIndex++] = sum;
         } else {
-            i = f(curr + 1, end, sumArr, sum, i, max);
-            i = f(curr + 1, end, sumArr, sum + arr[curr], i, max);
+            sumIndex = f(curr + 1, end, sum, sumArr, sumIndex, max);
+            sumIndex = f(curr + 1, end, sum + arr[curr], sumArr, sumIndex, max);
         }
-        return i;
+        return sumIndex;
     }
 }
