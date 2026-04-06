@@ -16,7 +16,7 @@ public class Code04_FillCellsUseAllColorsWays {
     public static final int MOD = 1000000007;
     public static int fillColor(int n, int m) {
         int[][] dp = new int[n + 1][m + 1];
-        // dp[i - 1][j] * m
+        // dp[i - 1][j] * j
         // dp[i - 1][j - 1] * (m - (j - 1))
         return 0;
     }

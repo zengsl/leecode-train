@@ -129,6 +129,38 @@ public class BinaryTreeLevelOrderTraversal {
             }
             return res;
         }
+
+
+        public List<List<Integer>> levelOrder3(TreeNode root) {
+            if (root == null) {
+                return List.of();
+            }
+            List<List<Integer>> res = new ArrayList<>();
+            List<TreeNode> list = new ArrayList<>();
+            int l = 0, r = 1;
+            int nl = 0;
+            list.add(root);
+            while (l < r) {
+                List<Integer> level = new ArrayList<>();
+                nl = r;
+                for (int i = l, size = r; i < size; i++) {
+                    TreeNode treeNode = list.get(i);
+                    level.add(treeNode.val);
+                    if (treeNode.left != null) {
+                        list.add(treeNode.left);
+                        r++;
+                    }
+
+                    if (treeNode.right != null) {
+                        list.add(treeNode.right);
+                        r++;
+                    }
+                }
+                l = nl;
+                res.add(level);
+            }
+            return res;
+        }
     }
 
 //leetcode submit region end(Prohibit modification and deletion)
