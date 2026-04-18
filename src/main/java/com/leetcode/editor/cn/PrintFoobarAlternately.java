@@ -86,7 +86,7 @@ public class PrintFoobarAlternately {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class FooBar {
-        private int n;
+        private final int n;
 
         public FooBar(int n) {
             this.n = n;
