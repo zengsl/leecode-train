@@ -43,9 +43,9 @@ import java.util.Map;
 /**
  * [105]Construct Binary Tree from Preorder and Inorder Traversal
  */
-public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
+public class ConstructBinaryTreeFromPreorderAndInorderTraversal2 {
     public static void main(String[] args) {
-        Solution solution = new ConstructBinaryTreeFromPreorderAndInorderTraversal().new Solution();
+        Solution solution = new ConstructBinaryTreeFromPreorderAndInorderTraversal2().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -65,27 +65,25 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
      * }
      */
     class Solution {
-
-        Map<Integer, Integer> indexMap;
+        private Map<Integer, Integer> inIndexMap;
 
         public TreeNode buildTree(int[] preorder, int[] inorder) {
-            indexMap = new HashMap<>();
+            inIndexMap = new HashMap<>();
             for (int i = 0; i < inorder.length; i++) {
-                indexMap.put(inorder[i], i);
+                inIndexMap.put(inorder[i], i);
             }
-            return f(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+            return b(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
         }
 
-        TreeNode f(int[] preorder, int pStart, int pEnd, int[] inorder, int iStart, int iEnd) {
+        TreeNode b(int[] preorder, int pStart, int pEnd, int[] inorder, int iStart, int iEnd) {
             if (pStart > pEnd) {
                 return null;
             }
-            TreeNode root = new TreeNode();
-            int currVal = preorder[pStart];
-            root.val = currVal;
-            root.left = f(preorder, pStart + 1, pStart + indexMap.get(currVal) - iStart, inorder, iStart, indexMap.get(currVal) - 1);
-            root.right = f(preorder, pStart + indexMap.get(currVal) - iStart + 1, pEnd, inorder, indexMap.get(currVal) + 1, iEnd);
-            return root;
+            int currentVal = preorder[pStart];
+            TreeNode curr = new TreeNode(currentVal);
+            curr.left = b(preorder, pStart + 1, pStart + inIndexMap.get(currentVal) - iStart, inorder, iStart, inIndexMap.get(currentVal) - 1);
+            curr.right = b(preorder, pStart + inIndexMap.get(currentVal) - iStart + 1, pEnd, inorder, inIndexMap.get(currentVal) + 1, iEnd);
+            return curr;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
