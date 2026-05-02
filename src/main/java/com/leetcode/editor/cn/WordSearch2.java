@@ -53,9 +53,9 @@ package com.leetcode.editor.cn;
 /**
  * [79]Word Search
  */
-public class WordSearch {
+public class WordSearch2 {
     public static void main(String[] args) {
-        Solution solution = new WordSearch().new Solution();
+        Solution solution = new WordSearch2().new Solution();
         System.out.println(solution.exist(new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}, "ABCCED"));
         System.out.println(solution.exist(new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}, "ABCB"));
         System.out.println(solution.exist(new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}, "SEE"));
@@ -65,10 +65,9 @@ public class WordSearch {
     class Solution {
 
         public boolean exist(char[][] board, String word) {
-            int n = board.length, m = board[0].length;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (f(i, j, 0, board, word)) {
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    if (f(board, i, j, word.toCharArray(), 0)) {
                         return true;
                     }
                 }
@@ -76,24 +75,23 @@ public class WordSearch {
             return false;
         }
 
-        boolean f(int i, int j, int pos, char[][] board, String word) {
-            if (pos == word.length()) {
+        public static boolean f(char[][] board, int i, int j, char[] ws, int k) {
+            if (k == ws.length) {
                 return true;
             }
 
-            if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] != word.charAt(pos)) {
+            if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != ws[k]) {
                 return false;
             }
 
             char backup = board[i][j];
             board[i][j] = 0;
-            boolean res = f(i + 1, j, pos + 1, board, word)
-                    || f(i - 1, j, pos + 1, board, word)
-                    || f(i, j + 1, pos + 1, board, word)
-                    || f(i, j - 1, pos + 1, board, word);
-
+            boolean ans = f(board, i + 1, j, ws, k + 1)
+                    || f(board, i - 1, j, ws, k + 1)
+                    || f(board, i, j + 1, ws, k + 1)
+                    || f(board, i, j - 1, ws, k + 1);
             board[i][j] = backup;
-            return res;
+            return ans;
         }
 
     }

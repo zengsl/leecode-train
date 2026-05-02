@@ -47,33 +47,21 @@ package com.leetcode.editor.cn;
 public class SearchInsertPosition {
     public static void main(String[] args) {
         Solution solution = new SearchInsertPosition().new Solution();
-//        int[] nums1 = new int[]{1, 3, 5, 6};
-//        System.out.println(solution.searchInsert(nums1, 2));
-//        System.out.println(solution.searchInsert(nums1, 5));
+        int[] nums1 = new int[]{1, 3, 5, 6};
+        System.out.println(solution.searchInsert(nums1, 2));
+        System.out.println(solution.searchInsert(nums1, 5));
+        System.out.println(solution.searchInsert(nums1, 7));
 
-        int[] nums1 = new int[]{1, 3};
-        System.out.println(solution.searchInsert(nums1, 3));
+        int[] nums2 = new int[]{1, 3};
+        System.out.println(solution.searchInsert(nums2, 3));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int searchInsert(int[] nums, int target) {
-            if (nums == null || nums.length == 0) {
-                return -1;
-            }
-            // fast check
-            int length = nums.length;
-            if (target <= nums[0]) {
-                return 0;
-            }
-            if (target >= nums[length - 1]) {
-                return length;
-            }
-
-            // binary search
-            int left = 0, right = length - 1;
+            int left = 0, right = nums.length - 1, mid;
             while (left <= right) {
-                int mid = left + ((right - left) >> 1);
+                mid = left + ((right - left) >> 1);
                 if (nums[mid] > target) {
                     right = mid - 1;
                 } else if (nums[mid] < target) {
@@ -84,32 +72,6 @@ public class SearchInsertPosition {
             }
             return left;
         }
-
-        /*private int process(int[] nums, int start, int end, int target) {
-            *//*if (start == end) {
-
-                if (nums[start] == target) {
-                  return start;
-                } else if (target < nums[start]) {
-                    return start;
-
-//                    return Math.max(start - 1, 0);
-                } else if (target > nums[start]) {
-                    return start + 1;
-                }
-            }*//*
-
-            int middle = start + (end - start) / 2;
-            if (nums[middle] > target) {
-                return process(nums, start, middle - 1, target);
-            } else if (nums[middle] < target) {
-                return process(nums, middle + 1, end, target);
-            } else if (nums[middle] == target) {
-                return middle;
-            } else {
-                return -1;
-            }
-        }*/
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
